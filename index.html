@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T1D Management Dashboard</title>
+
+    <!-- Google Fonts: Outfit for a modern, premium look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Main Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <!-- Auth Overlay -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-card-modern">
+            <!-- Left Side: Visual -->
+            <div class="auth-visual">
+                <div class="auth-brand">
+                    <i class="fa-solid fa-heart-pulse"></i> GlucoTrack
+                </div>
+                <div class="auth-quote">
+                    <h2>Capturing Health,<br>Creating Balance.</h2>
+                    <div class="slider-dots">
+                        <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Interaction -->
+            <div class="auth-content">
+
+                <!-- Login View -->
+                <div id="login-view" class="auth-view active">
+                    <div class="auth-header-right">
+                        <h2>Welcome back</h2>
+                        <p>Please enter your details to sign in.</p>
+                    </div>
+
+                    <div class="social-login">
+                        <button class="btn-social" type="button"><i class="fa-brands fa-google"></i> Google</button>
+                        <button class="btn-social" type="button"><i class="fa-brands fa-apple"></i> Apple</button>
+                    </div>
+
+                    <div class="divider"><span>or</span></div>
+
+                    <form id="login-form" class="auth-form-modern">
+                        <div class="input-wrap">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="input-wrap">
+                            <input type="password" placeholder="Password" required>
+                            <i class="fa-regular fa-eye toggle-pass"></i>
+                        </div>
+                        <div class="form-options">
+                            <label class="custom-check">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                                <span class="lbl">Remember me</span>
+                            </label>
+                            <a href="#" class="forgot-pass">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn-primary-modern">Sign In</button>
+                    </form>
+
+                    <p class="bottom-text">Don't have an account? <a href="#" id="go-to-signup">Sign up</a></p>
+                </div>
+
+                <!-- Signup View -->
+                <div id="signup-view" class="auth-view" style="display: none;">
+                    <div class="auth-header-right">
+                        <h2>Create an account</h2>
+                        <p>Start your journey with GlucoTrack today.</p>
+                    </div>
+
+                    <div class="social-login">
+                        <button class="btn-social" type="button"><i class="fa-brands fa-google"></i> Google</button>
+                        <button class="btn-social" type="button"><i class="fa-brands fa-apple"></i> Apple</button>
+                    </div>
+
+                    <div class="divider"><span>or register with</span></div>
+
+                    <form id="signup-form" class="auth-form-modern">
+                        <div class="row-inputs">
+                            <div class="input-wrap"><input type="text" placeholder="First Name" required></div>
+                            <div class="input-wrap"><input type="text" placeholder="Last Name" required></div>
+                        </div>
+                        <div class="input-wrap">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="input-wrap">
+                            <input type="password" placeholder="Password" required>
+                        </div>
+                        <div class="input-wrap">
+                            <select required>
+                                <option value="" disabled selected>Diabetes Type</option>
+                                <option value="T1">Type 1</option>
+                                <option value="T2">Type 2</option>
+                            </select>
+                        </div>
+                        <div class="form-options">
+                            <label class="custom-check">
+                                <input type="checkbox" required>
+                                <span class="checkmark"></span>
+                                <span class="lbl">I agree to Terms & Conditions</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn-primary-modern">Create account</button>
+                    </form>
+
+                    <p class="bottom-text">Already have an account? <a href="#" id="go-to-login">Log in</a></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container" id="app-container" style="display: none;">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-heart-pulse"></i>
+                <span>GlucoTrack</span>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" onclick="app.switchView('dashboard')">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" onclick="app.switchView('schedule')">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span>Schedule</span>
+                </a>
+                <a href="#" class="nav-item" onclick="app.switchView('map')">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <span>Location</span>
+                </a>
+                <a href="#" class="nav-item" onclick="app.switchView('profile')">
+                    <i class="fa-solid fa-id-card-clip"></i>
+                    <span>Medical ID</span>
+                </a>
+                <div class="nav-spacer" style="flex:1"></div>
+                <a href="#" class="nav-item" onclick="app.logout()">
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    <span>Logout</span>
+                </a>
+            </nav>
+
+            <div class="pro-banner">
+                <div class="pro-icon"><i class="fa-solid fa-crown"></i></div>
+                <div class="pro-text">Pro Feature</div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="welcome-text">
+                    <h1>Welcome back, <span class="highlight">Alex</span></h1>
+                    <p>Here's your daily diabetes management overview.</p>
+                </div>
+                <div class="user-profile">
+                    <div class="notification-badge">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="avatar">
+                        <img src="https://ui-avatars.com/api/?name=Alex+Doe&background=7F56D9&color=fff" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Grid -->
+            <div class="dashboard-grid" id="main-dashboard">
+
+                <!-- Bracelet Simulator Card (Top Left) -->
+                <div class="card bracelet-card">
+                    <div class="card-header">
+                        <h3>Bracelet Simulator</h3>
+                        <div class="status-indicator online">Connected</div>
+                    </div>
+
+                    <div class="bracelet-visual" id="bracelet-trigger">
+                        <div class="bracelet-band">
+                            <div class="bracelet-face">
+                                <i class="fa-solid fa-fingerprint"></i>
+                                <span class="tap-hint">Tap here</span>
+                            </div>
+                        </div>
+                        <div class="ripple-container"></div>
+                    </div>
+                    <div id="gesture-feedback" class="gesture-feedback">Waiting for input...</div>
+                </div>
+
+                <!-- Schedule Widget (Top Right - Spans height of Bracelet + Stats) -->
+                <div class="card schedule-card">
+                    <div class="card-header">
+                        <h3>Today's Schedule <span class="sync-badge"><i class="fa-solid fa-rotate"></i> Synced</span>
+                        </h3>
+                        <button class="btn-icon"><i class="fa-solid fa-calendar-day"></i></button>
+                    </div>
+                    <div class="schedule-list" id="schedule-list">
+                        <div class="schedule-item">
+                            <div class="sc-time">10:00 AM</div>
+                            <div class="sc-info">
+                                <div class="sc-title">Endocrinologist Appt</div>
+                                <div class="sc-loc">Dr. Tan's Clinic</div>
+                            </div>
+                        </div>
+                        <div class="schedule-item active">
+                            <div class="sc-time">12:30 PM</div>
+                            <div class="sc-info">
+                                <div class="sc-title">Lunch with Sarah</div>
+                                <div class="sc-loc">Orchard Gateway</div>
+                            </div>
+                        </div>
+                        <div class="schedule-item">
+                            <div class="sc-time">06:00 PM</div>
+                            <div class="sc-info">
+                                <div class="sc-title">Gym Session</div>
+                                <div class="sc-loc">ActiveSG</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Row (Bottom Left - Below Bracelet) -->
+                <div class="stats-row-new">
+                    <div class="stat-card-mini purple-gradient">
+                        <div class="stat-icon-mini"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <div class="stat-info-mini">
+                            <span class="label">Last Meal</span>
+                            <span class="value" id="last-meal-time">--:--</span>
+                        </div>
+                    </div>
+                    <div class="stat-card-mini blue-gradient">
+                        <div class="stat-icon-mini"><i class="fa-solid fa-syringe"></i></div>
+                        <div class="stat-info-mini">
+                            <span class="label">Last Insulin</span>
+                            <span class="value" id="last-insulin-time">--:--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Full Width Timeline -->
+                <div class="card timeline-card">
+                    <div class="card-header">
+                        <h3>Daily Timeline</h3>
+                        <div class="legend">
+                            <span class="legend-item"><i class="fa-solid fa-circle" style="color: #06b6d4"></i>
+                                Meal</span>
+                            <span class="legend-item"><i class="fa-solid fa-circle" style="color: #8b5cf6"></i>
+                                Insulin</span>
+                        </div>
+                    </div>
+                    <div class="timeline-container" id="timeline-container">
+                        <!-- Chart renders here -->
+                    </div>
+                </div>
+
+                <!-- Settings & Feedback -->
+                <div class="card settings-card">
+                    <div class="card-header">
+                        <h3>Interval Settings</h3>
+                    </div>
+                    <div class="settings-row">
+                        <div class="setting-group">
+                            <label>Meal Interval (hrs)</label>
+                            <select id="meal-interval">
+                                <option value="3">3 Hours</option>
+                                <option value="4" selected>4 Hours</option>
+                                <option value="5">5 Hours</option>
+                            </select>
+                        </div>
+                        <div class="setting-group">
+                            <label>Insulin Post-Meal (mins)</label>
+                            <select id="insulin-interval">
+                                <option value="15" selected>15 Mins</option>
+                                <option value="30">30 Mins</option>
+                                <option value="45">45 Mins</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="alert-box" id="health-alert" style="display: none;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        <span>Missed Insulin Timing!</span>
+                    </div>
+                </div>
+
+                <div class="card feedback-card">
+                    <div class="card-header">
+                        <h3>Smart Assistant</h3>
+                    </div>
+                    <div class="feedback-content" id="smart-feedback">
+                        <div class="feedback-state neutral">
+                            <i class="fa-solid fa-check-circle"></i>
+                            <p>All timelines look good. Keep it up!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Schedule View (Hidden by default) -->
+            <div class="schedule-view" id="schedule-view" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Full Schedule</h3>
+                        <button class="btn-primary" onclick="app.switchView('dashboard')">Back to Dashboard</button>
+                    </div>
+                    <p style="color:var(--text-muted); padding: 20px;">Detailed weekly schedule view would go here.
+                        (Synced from Calendar)</p>
+                    <!-- Reuse the list for demo -->
+                    <div class="schedule-list">
+                        <div class="schedule-item">
+                            <div class="sc-time">10:00 AM</div>
+                            <div class="sc-info">
+                                <div class="sc-title">Endocrinologist Appt</div>
+                                <div class="sc-loc">Dr. Tan's Clinic</div>
+                            </div>
+                        </div>
+                        <div class="schedule-item active">
+                            <div class="sc-time">12:30 PM</div>
+                            <div class="sc-info">
+                                <div class="sc-title">Lunch with Sarah</div>
+                                <div class="sc-loc">Orchard Gateway</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map View (Hidden by default) -->
+            <div class="map-view" id="map-view" style="display: none;">
+                <div class="card map-card">
+                    <div class="card-header">
+                        <h3>Nearby Diabetic-Friendly Spots</h3>
+                        <button class="btn-primary" onclick="app.switchView('dashboard')">Back to Dashboard</button>
+                    </div>
+                    <div class="map-container-mock">
+                        <!-- Static Mock Map for Visuals -->
+                        <div class="mock-map">
+                            <div class="map-grid"></div>
+                            <!-- Pins -->
+                            <div class="map-pin" style="top: 30%; left: 40%;" data-title="SaladStop!">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+                            <div class="map-pin" style="top: 50%; left: 60%;" data-title="The Daily Cut">
+                                <i class="fa-solid fa-drumstick-bite"></i>
+                            </div>
+                            <div class="map-pin" style="top: 20%; left: 70%;" data-title="Cedele">
+                                <i class="fa-solid fa-bread-slice"></i>
+                            </div>
+                            <!-- User Location -->
+                            <div class="user-dot" style="top: 45%; left: 50%;">
+                                <div class="pulse-ring"></div>
+                            </div>
+                        </div>
+                        <div class="map-overlay">
+                            <h4>Selected: The Daily Cut</h4>
+                            <p>High protein, low carb options available.</p>
+                            <span class="rating"><i class="fa-solid fa-star"></i> 4.8</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Profile / Medical ID View -->
+                <div class="profile-view" id="profile-view" style="display: none;">
+                    <div class="profile-layout">
+                        <!-- About Me Card -->
+                        <div class="card profile-card">
+                            <div class="profile-header">
+                                <div class="profile-avatar-large">
+                                    <img src="https://ui-avatars.com/api/?name=Alex+Doe&background=7F56D9&color=fff&size=128"
+                                        alt="Profile">
+                                </div>
+                                <div class="profile-identity">
+                                    <h2>Alex Doe</h2>
+                                    <div class="tags">
+                                        <span class="tag t1d-tag">Type 1 Diabetes</span>
+                                        <span class="tag student-tag">Insulin Dependent</span>
+                                        <span class="tag" style="background: rgba(255,255,255,0.1);">NTU Student</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-bio">
+                                <div
+                                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                    <h3 style="margin-bottom: 0;"><i class="fa-solid fa-circle-info"></i> Medical
+                                        Persona</h3>
+                                    <button id="edit-profile-btn" class="btn-icon" style="color: var(--primary);"><i
+                                            class="fa-solid fa-pen-to-square"></i></button>
+                                </div>
+                                <p><strong>Condition:</strong> <span id="profile-condition">Type 1 Diabetes Mellitus
+                                        (Insulin Dependent).</span></p>
+                                <p style="margin-top: 10px;">
+                                    My pancreas produces little to no insulin. I require daily insulin injections or an
+                                    insulin pump to survive.
+                                    I monitor my blood sugar levels continuously using a CGM (Continuous Glucose
+                                    Monitor).
+                                </p>
+                                <p style="margin-top: 10px;">
+                                    <strong>Triggers:</strong> <span id="profile-triggers">Stress, intense physical
+                                        activity, and irregular meal
+                                        timings can cause rapid fluctuations in my blood glucose levels.</span>
+                                </p>
+                            </div>
+                            <div class="profile-stats">
+                                <div class="p-stat">
+                                    <span class="label">Age</span>
+                                    <span class="val" id="stat-age">20</span>
+                                </div>
+                                <div class="p-stat">
+                                    <span class="label">Blood Type</span>
+                                    <span class="val" id="stat-blood">O+</span>
+                                </div>
+                                <div class="p-stat">
+                                    <span class="label">Device</span>
+                                    <span class="val" id="stat-device">Dexcom G6</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Emergency Info Card -->
+                        <div class="card emergency-card">
+                            <div class="card-header">
+                                <h3 style="color: #ef4444;"><i class="fa-solid fa-suitcase-medical"></i> Emergency
+                                    Protocols</h3>
+                            </div>
+                            <div class="emergency-content">
+                                <div class="emergency-section">
+                                    <h4 style="color: #f87171;"><i class="fa-solid fa-arrow-down"></i> Hypoglycemia (LOW
+                                        Sugar)</h4>
+                                    <p class="symptom-desc"><strong>Symptoms:</strong> Shaking, sweating, confusion,
+                                        slurred speech, rapid heartbeat, dizziness, or loss of consciousness.</p>
+                                    <div class="action-box low">
+                                        <strong><i class="fa-solid fa-bolt"></i> IMMEDIATE ACTION (Conscious):</strong>
+                                        <ol style="margin-left: 15px; margin-top: 5px;">
+                                            <li>Give 15g of fast-acting sugar (e.g., 1/2 can of regular soda, fruit
+                                                juice, or glucose tabs).</li>
+                                            <li>Wait 15 minutes, then check blood sugar.</li>
+                                            <li>Repeat if necessary.</li>
+                                        </ol>
+                                        <div style="margin-top: 8px; font-weight: bold; color: #7f1d1d;">
+                                            IF UNCONSCIOUS: DO NOT give food/water. Call Ambulance (995) immediately.
+                                            Administer Glucagon if trained.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="emergency-section">
+                                    <h4 style="color: #fbbf24;"><i class="fa-solid fa-arrow-up"></i> Hyperglycemia (HIGH
+                                        Sugar)</h4>
+                                    <p class="symptom-desc"><strong>Symptoms:</strong> Extreme thirst, frequent
+                                        urination, dry skin, nausea, fruity breath odor, or labored breathing.</p>
+                                    <div class="action-box high">
+                                        <strong><i class="fa-solid fa-user-nurse"></i> ACTION:</strong>
+                                        <ul style="margin-left: 15px; margin-top: 5px;">
+                                            <li>Encourage drinking sugar-free fluids (water).</li>
+                                            <li>Check if insulin has been administered via pump/pen.</li>
+                                            <li>If vomiting or confusion occurs, seek medical help immediately (Risk of
+                                                Ketoacidosis).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="emergency-contacts">
+                                    <h4>Emergency Contacts</h4>
+                                    <div class="contact-item">
+                                        <span class="name">Mrs. Doe (Mother)</span>
+                                        <a href="tel:+6591234567" class="phone"><i class="fa-solid fa-phone"></i> 9123
+                                            4567</a>
+                                    </div>
+                                    <div class="contact-item">
+                                        <span class="name">Tan Tock Seng Hospital</span>
+                                        <a href="tel:+6562566011" class="phone"><i class="fa-solid fa-hospital"></i>
+                                            6256 6011</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </main>
+    </div>
+
+    <!-- ApexCharts -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
