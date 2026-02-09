@@ -171,7 +171,7 @@
                 </div>
                 <div class="user-profile">
                     <div class="notification-badge" id="notification-bell">
-                        <i class="fa-solid fa-bell" style="font-size: 1.3rem;"></i>
+                        <i class="fa-regular fa-bell"></i>
                         <span class="badge">3</span>
                         <!-- Notification Dropdown -->
                         <div class="notification-dropdown" id="notification-dropdown" style="display: none;">
@@ -578,6 +578,161 @@
     <!-- ApexCharts -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="js/app.js"></script>
+</body>
+
+</html>
+<h2>Alex Doe</h2>
+<div class="tags">
+    <span class="tag t1d-tag">Type 1 Diabetes</span>
+    <span class="tag student-tag">Insulin Dependent</span>
+    <span class="tag" style="background: rgba(255,255,255,0.1);">NTU Student</span>
+</div>
+</div>
+</div>
+<div class="profile-bio">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="margin-bottom: 0;"><i class="fa-solid fa-circle-info"></i> Medical
+            Persona</h3>
+        <button id="edit-profile-btn" class="btn-icon" style="color: var(--primary);"><i
+                class="fa-solid fa-pen-to-square"></i></button>
+    </div>
+
+    <!-- About Section -->
+    <div class="persona-section">
+        <p><strong>About:</strong></p>
+        <p id="profile-about" class="persona-detail" style="margin-top: 8px; line-height: 1.6;">
+            I'm a 20-year-old university student at NTU studying Computer Engineering. I was diagnosed
+            with Type 1 Diabetes at age 12, and I've learned to manage it alongside my busy academic
+            schedule. Between classes, lab work, and project deadlines, maintaining stable blood sugar
+            levels is crucial for my success.
+        </p>
+    </div>
+
+    <!-- Condition Section -->
+    <div class="persona-section" style="margin-top: 15px;">
+        <p><strong>Condition:</strong> <span id="profile-condition">Type 1 Diabetes Mellitus (Insulin
+                Dependent)</span></p>
+        <p class="persona-detail" style="margin-top: 8px; line-height: 1.6;">
+            My pancreas produces little to no insulin. I require daily insulin injections or an insulin
+            pump to survive. I monitor my blood sugar levels continuously using a CGM (Continuous
+            Glucose Monitor) and use a smart insulin pen to track my doses.
+        </p>
+    </div>
+
+    <!-- Daily Routine Section -->
+    <div class="persona-section" style="margin-top: 15px;">
+        <p><strong>Daily Routine:</strong></p>
+        <p id="profile-routine" class="persona-detail" style="margin-top: 8px; line-height: 1.6;">
+            I check my blood glucose 6-8 times daily, especially before meals and during exercise. My
+            target range is 80-140 mg/dL. I carry glucose tablets and snacks for emergency lows, and I
+            always inform my classmates and professors about my condition for safety.
+        </p>
+    </div>
+
+    <!-- Triggers Section -->
+    <div class="persona-section" style="margin-top: 15px;">
+        <p><strong>Triggers:</strong> <span id="profile-triggers">Stress, intense physical activity, and
+                irregular meal timings</span></p>
+        <p class="persona-detail" style="margin-top: 8px; line-height: 1.6;">
+            Exam stress and all-night study sessions can cause rapid fluctuations in my blood glucose
+            levels. Late-night coding marathons often lead to forgotten meals, which is why I rely on
+            this app to keep me on track.
+        </p>
+    </div>
+
+    <!-- Goals Section -->
+    <div class="persona-section" style="margin-top: 15px;">
+        <p><strong>Goals:</strong></p>
+        <p id="profile-goals" class="persona-detail" style="margin-top: 8px; line-height: 1.6;">
+            Stay within my target glucose range ≥70% of the time (Time in Range). Complete my degree
+            while maintaining an HbA1c below 7.0%. Eventually pursue a career in health tech to help
+            others with chronic conditions manage their health better.
+        </p>
+    </div>
+</div>
+<div class="profile-stats">
+    <div class="p-stat">
+        <span class="label">Age</span>
+        <span class="val" id="stat-age">20</span>
+    </div>
+    <div class="p-stat">
+        <span class="label">Blood Type</span>
+        <span class="val" id="stat-blood">O+</span>
+    </div>
+    <div class="p-stat">
+        <span class="label">Device</span>
+        <span class="val" id="stat-device">Dexcom G6</span>
+    </div>
+</div>
+</div>
+
+<!-- Emergency Info Card -->
+<div class="card emergency-card">
+    <div class="card-header">
+        <h3 style="color: #ef4444;"><i class="fa-solid fa-suitcase-medical"></i> Emergency
+            Protocols</h3>
+    </div>
+    <div class="emergency-content">
+        <div class="emergency-section">
+            <h4 style="color: #f87171;"><i class="fa-solid fa-arrow-down"></i> Hypoglycemia (LOW
+                Sugar)</h4>
+            <p class="symptom-desc"><strong>Symptoms:</strong> Shaking, sweating, confusion,
+                slurred speech, rapid heartbeat, dizziness, or loss of consciousness.</p>
+            <div class="action-box low">
+                <strong><i class="fa-solid fa-bolt"></i> IMMEDIATE ACTION (Conscious):</strong>
+                <ol style="margin-left: 15px; margin-top: 5px;">
+                    <li>Give 15g of fast-acting sugar (e.g., 1/2 can of regular soda, fruit
+                        juice, or glucose tabs).</li>
+                    <li>Wait 15 minutes, then check blood sugar.</li>
+                    <li>Repeat if necessary.</li>
+                </ol>
+                <div style="margin-top: 8px; font-weight: bold; color: #7f1d1d;">
+                    IF UNCONSCIOUS: DO NOT give food/water. Call Ambulance (995) immediately.
+                    Administer Glucagon if trained.
+                </div>
+            </div>
+        </div>
+
+        <div class="emergency-section">
+            <h4 style="color: #fbbf24;"><i class="fa-solid fa-arrow-up"></i> Hyperglycemia (HIGH
+                Sugar)</h4>
+            <p class="symptom-desc"><strong>Symptoms:</strong> Extreme thirst, frequent
+                urination, dry skin, nausea, fruity breath odor, or labored breathing.</p>
+            <div class="action-box high">
+                <strong><i class="fa-solid fa-user-nurse"></i> ACTION:</strong>
+                <ul style="margin-left: 15px; margin-top: 5px;">
+                    <li>Encourage drinking sugar-free fluids (water).</li>
+                    <li>Check if insulin has been administered via pump/pen.</li>
+                    <li>If vomiting or confusion occurs, seek medical help immediately (Risk of
+                        Ketoacidosis).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="emergency-contacts">
+            <h4>Emergency Contacts</h4>
+            <div class="contact-item">
+                <span class="name">Mrs. Doe (Mother)</span>
+                <a href="tel:+6591234567" class="phone"><i class="fa-solid fa-phone"></i> 9123
+                    4567</a>
+            </div>
+            <div class="contact-item">
+                <span class="name">Tan Tock Seng Hospital</span>
+                <a href="tel:+6562566011" class="phone"><i class="fa-solid fa-hospital"></i>
+                    6256 6011</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</main>
+</div>
+
+<!-- ApexCharts -->
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<script src="js/app.js"></script>
 </body>
 
 </html>

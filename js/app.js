@@ -66,11 +66,18 @@ class App {
         this.goToSignupBtn = document.getElementById('go-to-signup');
         this.goToLoginBtn = document.getElementById('go-to-login');
 
+        // Notification Elements
+        this.notificationBell = document.getElementById('notification-bell');
+        this.notificationDropdown = document.getElementById('notification-dropdown');
+
         // Profile Edit Elements
         this.editProfileBtn = document.getElementById('edit-profile-btn');
         this.profileFields = {
+            about: document.getElementById('profile-about'),
             condition: document.getElementById('profile-condition'),
+            routine: document.getElementById('profile-routine'),
             triggers: document.getElementById('profile-triggers'),
+            goals: document.getElementById('profile-goals'),
             age: document.getElementById('stat-age'),
             blood: document.getElementById('stat-blood'),
             device: document.getElementById('stat-device')
@@ -92,6 +99,23 @@ class App {
             this.settings.insulinInterval = parseInt(e.target.value);
             this.saveSettings();
             this.checkHealthStatus();
+        });
+
+        // Notification Dropdown Toggle
+        if (this.notificationBell) {
+            this.notificationBell.addEventListener('click', (e) => {
+                e.stopPropagation();
+                this.toggleNotificationDropdown();
+            });
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (this.notificationDropdown && this.notificationDropdown.style.display === 'block') {
+                if (!this.notificationBell.contains(e.target)) {
+                    this.notificationDropdown.style.display = 'none';
+                }
+            }
         });
 
         // Edit Profile Listener
@@ -468,10 +492,20 @@ class App {
         }
     }
 
+    toggleNotificationDropdown() {
+        if (this.notificationDropdown) {
+            const isVisible = this.notificationDropdown.style.display === 'block';
+            this.notificationDropdown.style.display = isVisible ? 'none' : 'block';
+        }
+    }
+
     saveProfileData() {
         const data = {
+            about: this.profileFields.about ? this.profileFields.about.innerText : '',
             condition: this.profileFields.condition ? this.profileFields.condition.innerText : '',
+            routine: this.profileFields.routine ? this.profileFields.routine.innerText : '',
             triggers: this.profileFields.triggers ? this.profileFields.triggers.innerText : '',
+            goals: this.profileFields.goals ? this.profileFields.goals.innerText : '',
             age: this.profileFields.age ? this.profileFields.age.innerText : '',
             blood: this.profileFields.blood ? this.profileFields.blood.innerText : '',
             device: this.profileFields.device ? this.profileFields.device.innerText : ''
@@ -484,8 +518,11 @@ class App {
     loadProfileData() {
         const data = JSON.parse(localStorage.getItem('t1d_profile_data'));
         if (data) {
+            if (this.profileFields.about) this.profileFields.about.innerText = data.about;
             if (this.profileFields.condition) this.profileFields.condition.innerText = data.condition;
+            if (this.profileFields.routine) this.profileFields.routine.innerText = data.routine;
             if (this.profileFields.triggers) this.profileFields.triggers.innerText = data.triggers;
+            if (this.profileFields.goals) this.profileFields.goals.innerText = data.goals;
             if (this.profileFields.age) this.profileFields.age.innerText = data.age;
             if (this.profileFields.blood) this.profileFields.blood.innerText = data.blood;
             if (this.profileFields.device) this.profileFields.device.innerText = data.device;
